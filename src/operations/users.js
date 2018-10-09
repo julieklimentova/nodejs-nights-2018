@@ -3,7 +3,7 @@
 const errors = require('./../utils/errors')
 const logger = require('./../utils/logger')
 const crypto = require('./../utils/crypto')
-const userRepository = require('./../repositories/users')
+const userRepository = require('../repositories/users')
 
 async function verifyTokenPayload(input) {
   logger.info({ input }, 'verifyTokenPayload start')
