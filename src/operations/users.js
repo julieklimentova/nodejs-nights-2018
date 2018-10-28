@@ -52,7 +52,16 @@ async function signUp(input) {
     password: await crypto.hashPassword(input.password),
     disabled: false,
   }
-  const alreadyExists = await userRepository.findByEmail(user.email)
+
+  let alreadyExists
+  try {
+    alreadyExists = await userRepository.findByEmail(user.email)
+  } catch (err) {
+    if (!(err instanceof errors.NotFoundError)) {
+      throw err
+    }
+  }
+
   if (alreadyExists) {
     throw new errors.ConflictError('User already exists.')
   }
